@@ -12,6 +12,17 @@
     "type": "git",
     "url": "https://github.com/krisl/nod"
   },
+  "keywords": [
+    "bel",
+    "mobx",
+    "morphdom",
+    "yo-yo",
+    "cellx",
+    "autorun",
+    "cache",
+    "proxy",
+    "memoization"
+  ],
   "dependencies": {
     "bel": "^4.5.0",
     "morphdom": "^2.1.2"
