@@ -9,6 +9,7 @@
   "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "bankai": "^3.3.1"
+    "bankai": "^3.3.1",
+    "mobx": "^2.6.0"
   }
 }
