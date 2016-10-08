@@ -5,8 +5,12 @@ const bel = require('bel')
 
 const foreverTrue = () => true
 
+function newProxyNode () {
+  return bel.createElement('span', {onload: autorun})
+}
+
 function proxyNode (fn) {
-  const proxy = bel`<span onload=${autorun}></span>`
+  const proxy = newProxyNode()
   proxy.isSameNode = foreverTrue
 
   fn.node = proxy
