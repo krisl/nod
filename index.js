@@ -9,8 +9,8 @@ function makeNode (tagName, attrs) {
   return bel.createElement(tagName, attrs)
 }
 
-function proxyNode (fn) {
-  const proxy = makeNode('span', {onload: autorun})
+function proxyNode (fn, onload) {
+  const proxy = makeNode('span', {onload})
   proxy.isSameNode = foreverTrue
 
   fn.node = proxy
@@ -28,7 +28,7 @@ function autorun (node) {
 
 function h (tagName, attrs, children) {
   const proxiedChildren = children && children.map(
-    node => typeof node === 'function' ? proxyNode(node) : node
+    node => typeof node === 'function' ? proxyNode(node, autorun) : node
   )
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
