@@ -1,5 +1,5 @@
 const mobx = require('mobx')
-const nod = require('../')
+const nod = require('../')(mobx.autorun)
 
 const state = mobx.observable([
   {text: 'one', style: ''},

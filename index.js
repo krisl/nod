@@ -1,6 +1,5 @@
 const morphdom = require('morphdom')
 const hyperx = require('hyperx')
-const mobx = require('mobx')
 const bel = require('bel')
 
 const foreverTrue = () => true
@@ -33,6 +32,4 @@ const makeH = (autorun) => function (tagName, attrs, children) {
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
-const nod = hyperx(makeH(makeAutorun(mobx.autorun)))
-
-module.exports = nod
+module.exports = (autorun) => hyperx(makeH(makeAutorun(autorun)))
