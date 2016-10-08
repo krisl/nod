@@ -29,7 +29,7 @@ const makeProxyMapper = (proxyNode) =>
   node => typeof node === 'function' ? proxyNode(node) : node
 
 const makeH = (proxyMapper) => function (tagName, attrs, children) {
-  const proxiedChildren = children && children.map(proxyMapper)
+  const proxiedChildren = Array.prototype.concat.apply([], children).map(proxyMapper)
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
