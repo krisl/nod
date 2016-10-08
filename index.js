@@ -19,8 +19,8 @@ function proxyNode (fn, onload) {
   return proxy
 }
 
-function autorun (node) {
-  mobx.autorun(() => {
+const makeAutorun = (autorun) => function (node) {
+  autorun(() => {
     const fn = node.fn
     fn.node = morphdom(fn.node, fn())
   })
@@ -33,6 +33,6 @@ const makeH = (autorun) => function (tagName, attrs, children) {
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
-const nod = hyperx(makeH(autorun))
+const nod = hyperx(makeH(makeAutorun(mobx.autorun)))
 
 module.exports = nod
