@@ -26,13 +26,13 @@ function autorun (node) {
   })
 }
 
-function h (tagName, attrs, children) {
+const makeH = (autorun) => function (tagName, attrs, children) {
   const proxiedChildren = children && children.map(
     node => typeof node === 'function' ? proxyNode(node, autorun) : node
   )
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
-const nod = hyperx(h)
+const nod = hyperx(makeH(autorun))
 
 module.exports = nod
