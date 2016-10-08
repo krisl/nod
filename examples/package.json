@@ -1,0 +1,14 @@
+{
+  "name": "examples",
+  "version": "0.0.1",
+  "description": "nod examples",
+  "main": "index.js",
+  "scripts": {
+    "start": "bankai start"
+  },
+  "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bankai": "^3.3.1"
+  }
+}
