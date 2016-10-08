@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "bel": "^4.5.0",
+    "mobx": "^2.6.0",
     "morphdom": "^2.1.2"
   }
 }
