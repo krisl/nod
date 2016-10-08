@@ -25,11 +25,12 @@ const makeAutorun = (autorun) => function (node) {
   })
 }
 
-const makeH = (proxyNode) => function (tagName, attrs, children) {
-  const proxiedChildren = children && children.map(
-    node => typeof node === 'function' ? proxyNode(node) : node
-  )
+const makeProxyMapper = (proxyNode) =>
+  node => typeof node === 'function' ? proxyNode(node) : node
+
+const makeH = (proxyMapper) => function (tagName, attrs, children) {
+  const proxiedChildren = children && children.map(proxyMapper)
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
-module.exports = (autorun) => hyperx(makeH(makeProxyNode(makeAutorun(autorun))))
+module.exports = (autorun) => hyperx(makeH(makeProxyMapper(makeProxyNode(makeAutorun(autorun)))))
