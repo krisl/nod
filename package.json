@@ -1,13 +1,17 @@
 {
   "name": "nod",
   "version": "0.0.1",
-  "description": "",
+  "description": "get building",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krisl/nod"
+  },
   "dependencies": {
     "bel": "^4.5.0"
   }
