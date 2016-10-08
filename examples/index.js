@@ -42,3 +42,4 @@ document.body.appendChild(style)
 document.body.appendChild(test)
 
 window.state = state
+window.mobx = mobx
