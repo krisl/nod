@@ -18,6 +18,10 @@ function remove (i) {
   todos.splice(i, 1)
 }
 
+function onchange (e) {
+  todos[e.target.dataset.idx].done = e.target.checked
+}
+
 const todoApp = nod`
   <div>
     <h3>TODO</h3>
@@ -25,6 +29,7 @@ const todoApp = nod`
       <ul>
         ${todos.map((todo, i) => nod`
           <li>
+            <input type='checkbox' data-idx=${i} checked=${todo.done} onchange=${onchange} />
             ${todo.text}
             <button onclick=${() => remove(i)}>X</button>
           </li>
