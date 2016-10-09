@@ -2,13 +2,16 @@ const mobx = require('mobx')
 const nod = require('../')(mobx.autorun)
 
 const todos = mobx.observable([
-  "first todo",
-  "second todo"
+  {text: 'make a todo list', done: false},
+  {text: 'make a martini', done: true},
+  {text: 'have a siesta', done: true},
+  {text: 'call mom', done: false},
+  {text: 'watch tv', done: true}
 ])
 
 function add (e) {
   e.preventDefault()
-  todos.push(this.todo.value)
+  todos.push({text: this.todo.value, done: false})
 }
 
 function remove (i) {
