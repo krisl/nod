@@ -16,7 +16,11 @@ const todos = nod`
     <h3>TODO</h3>
     ${() => nod`
       <ul>
-        ${state.map((todo) => nod`<li>${todo}</li>`)}
+        ${state.map((todo) => nod`
+          <li>
+            ${todo}
+          </li>
+        `)}
       </ul>
     `}
     <form onsubmit=${add}>
