@@ -11,14 +11,19 @@ function add (e) {
   state.push(this.todo.value)
 }
 
+function remove (i) {
+  state.splice(i, 1)
+}
+
 const todos = nod`
   <div>
     <h3>TODO</h3>
     ${() => nod`
       <ul>
-        ${state.map((todo) => nod`
+        ${state.map((todo, i) => nod`
           <li>
             ${todo}
+            <button onclick=${() => remove(i)}>X</button>
           </li>
         `)}
       </ul>
