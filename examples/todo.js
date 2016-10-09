@@ -1,28 +1,28 @@
 const mobx = require('mobx')
 const nod = require('../')(mobx.autorun)
 
-const state = mobx.observable([
+const todos = mobx.observable([
   "first todo",
   "second todo"
 ])
 
 function add (e) {
   e.preventDefault()
-  state.push(this.todo.value)
+  todos.push(this.todo.value)
 }
 
 function remove (i) {
-  state.splice(i, 1)
+  todos.splice(i, 1)
 }
 
-const todos = nod`
+const todoApp = nod`
   <div>
     <h3>TODO</h3>
     ${() => nod`
       <ul>
-        ${state.map((todo, i) => nod`
+        ${todos.map((todo, i) => nod`
           <li>
-            ${todo}
+            ${todo.text}
             <button onclick=${() => remove(i)}>X</button>
           </li>
         `)}
@@ -35,7 +35,7 @@ const todos = nod`
   </div>
 `
 
-document.body.appendChild(todos)
+document.body.appendChild(todoApp)
 
-window.state = state
+window.todos = todos
 window.mobx = mobx
