@@ -22,18 +22,26 @@ function onchange (e) {
   todos[e.target.dataset.idx].done = e.target.checked
 }
 
+const todoItem = ({todo, i}) => {
+  console.log('i', i)
+return nod`
+  <li id=${i}>
+    <label>
+      ${console.log('todo', i)}
+      <input type='checkbox' data-idx=${i} checked=${todo.done} onchange=${onchange} />
+      ${todo.text}
+      <button onclick=${() => remove(i)}>X</button>
+    </label>
+  </li>
+`
+}
+
 const todoApp = nod`
   <div>
     <h3>TODO</h3>
-    ${() => nod`
+    ${() => console.log('map running') || nod`
       <ul>
-        ${todos.map((todo, i) => nod`
-          <li>
-            <input type='checkbox' data-idx=${i} checked=${todo.done} onchange=${onchange} />
-            ${todo.text}
-            <button onclick=${() => remove(i)}>X</button>
-          </li>
-        `)}
+        ${todos.map((todo, i) => nod`<cache func=${todoItem} params=${{todo, i}}/>`)}
       </ul>
     `}
     <form onsubmit=${add}>
