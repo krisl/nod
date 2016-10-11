@@ -49,8 +49,8 @@ const makeH = (proxyMapper, buildProxyNode) => function (tagName, attrs, childre
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
-module.exports = (autorun) => {
+module.exports = (autorun, untracked) => {
   const onload = makeAutorun(autorun)
-  const buildProxyNode = makeProxyNode(onload, foreverTrue)
+  const buildProxyNode = makeProxyNode(onload, makeIsSameNode(untracked))
   return hyperx(makeH(makeProxyMapper(buildProxyNode), buildProxyNode))
 }
