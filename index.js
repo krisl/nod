@@ -34,4 +34,7 @@ const makeH = (proxyMapper) => function (tagName, attrs, children) {
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
 
-module.exports = (autorun) => hyperx(makeH(makeProxyMapper(makeProxyNode(makeAutorun(autorun)))))
+module.exports = (autorun) => {
+  const onload = makeAutorun(autorun)
+  return hyperx(makeH(makeProxyMapper(makeProxyNode(onload))))
+}
