@@ -1,5 +1,5 @@
 const mobx = require('mobx')
-const nod = require('../')(mobx.autorun)
+const nod = require('../')(mobx.autorun, mobx.untracked)
 
 const todos = mobx.observable([
   {text: 'make a todo list', done: false},
