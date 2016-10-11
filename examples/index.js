@@ -20,7 +20,7 @@ const test = nod`
         ${() => nod`
           <div>
             ${state.map(x => nod`
-              <object id=${x.text}>${() => comp(x)}</object>
+              <span id=${x.text}>${() => comp(x)}</span>
             `)}
           </div>
         `}
