@@ -19,10 +19,11 @@ const makeProxyNode = (onload) => function (fn) {
 const makeAutorun = (autorun) => function (proxyNode) {
   let node = proxyNode
   const fn = proxyNode.fn
-  autorun(() => {
+  const disposer = autorun(() => {
     node = morphdom(node, fn())
-    node.fn = fn
   })
+  node.fn = fn
+  node.disposer = disposer
 }
 
 const makeProxyMapper = (proxyNode) =>
