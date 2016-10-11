@@ -11,17 +11,17 @@ function makeNode (tagName, attrs) {
 const makeProxyNode = (onload) => function (fn) {
   const proxy = makeNode('span', {onload})
   proxy.isSameNode = foreverTrue
-
-  fn.node = proxy
-  fn.node.fn = fn
+  proxy.fn = fn
 
   return proxy
 }
 
-const makeAutorun = (autorun) => function (node) {
+const makeAutorun = (autorun) => function (proxyNode) {
+  let node = proxyNode
+  const fn = proxyNode.fn
   autorun(() => {
-    const fn = node.fn
-    fn.node = morphdom(fn.node, fn())
+    node = morphdom(node, fn())
+    node.fn = fn
   })
 }
 
