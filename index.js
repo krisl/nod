@@ -26,12 +26,15 @@ const makeProxyNode = (onload, isSameNode) => function (fn, argMap) {
 }
 
 const makeAutorun = (autorun) => function (proxyNode) {
+  let argMap
   let node = proxyNode
   const fn = proxyNode.fn
   const disposer = autorun(() => {
-    node = morphdom(node, fn())
+    argMap = node.argMap
+    node = morphdom(node, fn(argMap))
   })
   node.fn = fn
+  node.argMap = argMap
   node.disposer = disposer
 }
 
