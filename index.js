@@ -8,9 +8,9 @@ function makeNode (tagName, attrs) {
   return bel.createElement(tagName, attrs)
 }
 
-const makeProxyNode = (onload) => function (fn) {
+const makeProxyNode = (onload, isSameNode) => function (fn) {
   const proxy = makeNode('span', {onload})
-  proxy.isSameNode = foreverTrue
+  proxy.isSameNode = isSameNode
   proxy.fn = fn
 
   return proxy
@@ -36,6 +36,6 @@ const makeH = (proxyMapper) => function (tagName, attrs, children) {
 
 module.exports = (autorun) => {
   const onload = makeAutorun(autorun)
-  const buildProxyNode = makeProxyNode(onload)
+  const buildProxyNode = makeProxyNode(onload, foreverTrue)
   return hyperx(makeH(makeProxyMapper(buildProxyNode)))
 }
