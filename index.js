@@ -26,8 +26,8 @@ const makeAutorun = (autorun) => function (proxyNode) {
   node.disposer = disposer
 }
 
-const makeProxyMapper = (proxyNode) =>
-  node => typeof node === 'function' ? proxyNode(node) : node
+const makeProxyMapper = (buildProxyNode) =>
+  node => typeof node === 'function' ? buildProxyNode(node) : node
 
 const makeH = (proxyMapper) => function (tagName, attrs, children) {
   const proxiedChildren = Array.prototype.concat.apply([], children).map(proxyMapper)
@@ -36,5 +36,6 @@ const makeH = (proxyMapper) => function (tagName, attrs, children) {
 
 module.exports = (autorun) => {
   const onload = makeAutorun(autorun)
-  return hyperx(makeH(makeProxyMapper(makeProxyNode(onload))))
+  const buildProxyNode = makeProxyNode(onload)
+  return hyperx(makeH(makeProxyMapper(buildProxyNode)))
 }
