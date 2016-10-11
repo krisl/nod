@@ -8,6 +8,14 @@ function makeNode (tagName, attrs) {
   return bel.createElement(tagName, attrs)
 }
 
+const makeIsSameNode = (untracked) => function (node) {
+  return untracked(() => {
+    const same = JSON.stringify(node.argMap) === JSON.stringify(this.argMap)
+    if (!same && node.disposer) node.disposer()
+    return same
+  })
+}
+
 const makeProxyNode = (onload, isSameNode) => function (fn) {
   const proxy = makeNode('span', {onload})
   proxy.isSameNode = isSameNode
