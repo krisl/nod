@@ -16,9 +16,10 @@ const makeIsSameNode = (untracked) => function (node) {
   })
 }
 
-const makeProxyNode = (onload, isSameNode) => function (fn) {
+const makeProxyNode = (onload, isSameNode) => function (fn, argMap) {
   const proxy = makeNode('span', {onload})
   proxy.isSameNode = isSameNode
+  proxy.argMap = argMap
   proxy.fn = fn
 
   return proxy
@@ -37,7 +38,10 @@ const makeAutorun = (autorun) => function (proxyNode) {
 const makeProxyMapper = (buildProxyNode) =>
   node => typeof node === 'function' ? buildProxyNode(node) : node
 
-const makeH = (proxyMapper) => function (tagName, attrs, children) {
+const makeH = (proxyMapper, buildProxyNode) => function (tagName, attrs, children) {
+  if (tagName === 'cache') {
+    return buildProxyNode(attrs.func, attrs.params)
+  }
   const proxiedChildren = Array.prototype.concat.apply([], children).map(proxyMapper)
   return bel.createElement(tagName, attrs, proxiedChildren)
 }
@@ -45,5 +49,5 @@ const makeH = (proxyMapper) => function (tagName, attrs, children) {
 module.exports = (autorun) => {
   const onload = makeAutorun(autorun)
   const buildProxyNode = makeProxyNode(onload, foreverTrue)
-  return hyperx(makeH(makeProxyMapper(buildProxyNode)))
+  return hyperx(makeH(makeProxyMapper(buildProxyNode), buildProxyNode))
 }
