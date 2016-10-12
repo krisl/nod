@@ -16,8 +16,8 @@ const makeIsSameNode = (untracked) => function (node) {
   })
 }
 
-const makeProxyNode = (onload, isSameNode) => function (fn, argMap) {
-  const proxy = makeNode('span', {onload})
+const makeProxyNode = (onload, isSameNode) => function (fn, argMap, id) {
+  const proxy = makeNode('span', {onload, id})
   proxy.isSameNode = isSameNode
   proxy.argMap = argMap
   proxy.fn = fn
@@ -43,7 +43,7 @@ const makeProxyMapper = (buildProxyNode) =>
 
 const makeH = (proxyMapper, buildProxyNode) => function (tagName, attrs, children) {
   if (tagName === 'cache') {
-    return buildProxyNode(attrs.func, attrs.params)
+    return buildProxyNode(attrs.func, attrs.params, attrs.id)
   }
   const proxiedChildren = Array.prototype.concat.apply([], children).map(proxyMapper)
   return bel.createElement(tagName, attrs, proxiedChildren)

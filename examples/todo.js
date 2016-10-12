@@ -41,7 +41,7 @@ const todoApp = nod`
     <h3>TODO</h3>
     ${() => console.log('map running') || nod`
       <ul>
-        ${todos.map((todo, i) => nod`<cache func=${todoItem} params=${{todo, i}}/>`)}
+        ${todos.map((todo, i) => nod`<cache id=${i} func=${todoItem} params=${{todo, i}}/>`)}
       </ul>
     `}
     <form onsubmit=${add}>
