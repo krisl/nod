@@ -22,7 +22,7 @@ function onchange (e) {
   todos[e.target.dataset.idx].done = e.target.checked
 }
 
-const todoItem = ({todo, i}) => {
+const todoItem = (todo, i) => {
   console.log('i', i)
 return nod`
   <li id=${i}>
@@ -41,7 +41,7 @@ const todoApp = nod`
     <h3>TODO</h3>
     ${() => console.log('map running') || nod`
       <ul>
-        ${todos.map((todo, i) => nod`<cache id=${i} func=${todoItem} params=${{todo, i}}/>`)}
+        ${todos.map(nod.sup(todoItem))}
       </ul>
     `}
     <form onsubmit=${add}>
