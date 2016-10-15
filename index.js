@@ -52,5 +52,15 @@ const makeH = (proxyMapper, buildProxyNode) => function (tagName, attrs, childre
 module.exports = (autorun, untracked) => {
   const onload = makeAutorun(autorun)
   const buildProxyNode = makeProxyNode(onload, makeIsSameNode(untracked))
-  return hyperx(makeH(makeProxyMapper(buildProxyNode), buildProxyNode))
+  const nod = hyperx(makeH(makeProxyMapper(buildProxyNode), buildProxyNode))
+  nod.sup = (fn) => {
+    return function () {
+      const args = Array.prototype.slice.call(arguments, 0, fn.length)
+      console.log('args', args)
+      const argWrapper = () => fn.apply(null, args)
+      const proxyNode = buildProxyNode(argWrapper, args)
+      return proxyNode
+    }
+  }
+  return nod
 }
